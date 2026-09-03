@@ -24,14 +24,62 @@ The Pi runs headless with locked down remote access; API credentials are isolate
 
 ## How to Deploy / Reproduce
 ```bash
-[# [First step is actaully getting the ufw onto the pi to do so run sudo apt install ufw -y:]
-# sudo ufw default deny incoming
-# sudo ufw default allow outgoing
-#sudo ufw allow ssh
-# sudo ufw enable
-# sudo ufw status verbose
-#For more extra security instead of just typical password to ssh, in Powershell/ command prompt use ssh-keygen -t ed25519
-# 
+## How to Deploy / Reproduce
+
+### 1. Install and configure the firewall (ufw)
+```bash
+# Install ufw
+sudo apt install ufw -y
+
+# Set default policies: block all incoming, allow all outgoing
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# Allow SSH before enabling — do this first or you'll lock yourself out
+sudo ufw allow ssh
+
+# Enable the firewall and confirm the rules
+sudo ufw enable
+sudo ufw status verbose
+```
+
+### 2. Generate an SSH key pair (on your local machine, not the Pi)
+```bash
+ssh-keygen -t ed25519
+```
+
+### 3. Copy the public key to the Pi
+```bash
+ssh-copy-id pi@<pi-ip-address>
+```
+
+### 4. Test key-based login before disabling passwords
+```bash
+ssh pi@<pi-ip-address>
+```
+Confirm you can log in with no password prompt before continuing.
+
+### 5. Disable password authentication on the Pi
+Edit the SSH config:
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+Set the following values:
+```
+PasswordAuthentication no
+PubkeyAuthentication yes
+```
+
+### 6. Restart SSH to apply changes
+```bash
+sudo systemctl restart ssh
+```
+
+### 7. (Optional) Additional hardening
+```bash
+# Auto-ban IPs after repeated failed login attempts
+sudo apt install fail2ban -y
+```
 ```
 
 ## Key Findings / Results
