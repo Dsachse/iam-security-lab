@@ -30,6 +30,7 @@ A security hardening case study on a a Raspberry Pi–based robotics and AI comp
 #sudo ufw allow ssh
 # sudo ufw enable
 # sudo ufw status verbose
+#For more extra security instead of just typical password to ssh, in Powershell/ command prompt use ssh-keygen -t ed25519
 # 
 ```
 
