@@ -46,7 +46,7 @@ sudo ufw status verbose
 ### 2. Generate an SSH key pair (on your local machine, not the Pi)
 ```bash
 ssh-keygen -t ed25519
-```
+``` 
 
 ### 3. Copy the public key to the Pi
 ```bash
