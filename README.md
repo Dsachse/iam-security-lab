@@ -1,5 +1,5 @@
 # iam-security-lab
-# [Raspberr Pi robotic hardening]
+# [AI robotic hardening]
 
 ## Overview
 [Overview
