@@ -24,11 +24,13 @@ A security hardening case study on a a Raspberry Pi–based robotics and AI comp
 
 ## How to Deploy / Reproduce
 ```bash
-[# [Add your actual commands here, e.g.:]
-# ufw enable
-# ufw allow <port>
-# ufw deny <port>
-# sudo systemctl disable <unused-service>]
+[# [First step is actaully getting the ufw onto the pi to do so run sudo apt install ufw -y:]
+# sudo ufw default deny incoming
+# sudo ufw default allow outgoing
+#sudo ufw allow ssh
+# sudo ufw enable
+# sudo ufw status verbose
+# 
 ```
 
 ## Key Findings / Results
