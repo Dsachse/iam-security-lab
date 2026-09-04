@@ -97,6 +97,59 @@ By default, project files can end up world-readable or group-writable —
 meaning other users or processes on the same machine could read or modify
 code they have no reason to touch. Lock this down to the owner only:
 
+### 9. Enable automatic security updates
+
+Keeps the system patched against known vulnerabilities without manual
+intervention.
+
+​```bash
+sudo apt install unattended-upgrades -y
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+​```
+
+Verify it's actually enabled:
+
+​```bash
+cat /etc/apt/apt.conf.d/20auto-upgrades
+​```
+
+Expected output:
+​```
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+​```
+### 10. Keep secrets out of application code
+
+Hardcoding API keys directly in scripts is a common way credentials
+end up leaked — especially if that code is ever pushed to a public
+repo. Store secrets in a separate, permission-locked file instead.
+
+​```bash
+sudo mkdir -p /etc/myapp
+sudo nano /etc/myapp/env
+​```
+
+Add secrets in `KEY=value` format, one per line:
+​```
+API_KEY=your_actual_key_here
+​```
+
+Lock the file down so only root can read it:
+​```bash
+sudo chmod 600 /etc/myapp/env
+sudo chown root:root /etc/myapp/env
+​```
+
+If the app runs as a systemd service, load the file via
+`EnvironmentFile=` in the unit file:
+​```
+[Service]
+EnvironmentFile=/etc/myapp/env
+​```
+
+The application code itself never contains a single secret — it's
+safe to make the repo public.
+
 ​```bash
 # Directories: owner gets full access, group can read/enter but not write,
 # everyone else gets nothing
