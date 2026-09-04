@@ -47,8 +47,21 @@ ssh-keygen -t ed25519 -C "your-label-here"
 ``` 
 
 ### 3. Copy the public key to the Pi
-```bash
-ssh-copy-id pi@<pi-ip-address>
+
+​```bash
+ssh-copy-id sachse02@<pi-ip-address>
+​```
+
+**Note for Windows users:** `ssh-copy-id` is a Linux/Mac-only tool and
+isn't available in PowerShell — you'll get `'ssh-copy-id' is not
+recognized as an internal or external command`. Use this instead:
+
+​```bash
+type C:\Users\<you>\.ssh\id_ed25519.pub | ssh sachse02@<pi-ip-address> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+​```
+
+Both prompt for the Pi's account password one last time — that's
+expected, since you need an existing way in to install the very first key.
 ```
 
 ### 4. Test key-based login before disabling passwords
