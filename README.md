@@ -41,9 +41,9 @@ sudo ufw enable
 sudo ufw status verbose
 ```
 
-### 2. Generate an SSH key pair (on your local machine, not the Pi)
+### 2. Generate an SSH key pair (on your local machine — PowerShell on Windows, Terminal on Mac/Linux — not the Pi)
 ```bash
-ssh-keygen -t ed25519
+ssh-keygen -t ed25519 -C "your-label-here"
 ``` 
 
 ### 3. Copy the public key to the Pi
@@ -78,6 +78,32 @@ sudo systemctl restart ssh
 # Auto-ban IPs after repeated failed login attempts
 sudo apt install fail2ban -y
 ```
+### 8. Lock down file permissions on project code
+
+By default, project files can end up world-readable or group-writable —
+meaning other users or processes on the same machine could read or modify
+code they have no reason to touch. Lock this down to the owner only:
+
+​```bash
+# Directories: owner gets full access, group can read/enter but not write,
+# everyone else gets nothing
+chmod -R 750 ~/path/to/your/project/
+
+# Files: owner can read/write, group can read-only, everyone else gets nothing
+find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
+​```
+
+Verify the result:
+
+​```bash
+ls -la ~/path/to/your/project/
+​```
+
+**Note:** if any files in the directory were created by a different user
+(e.g. `root`, from running a script with `sudo`), `chmod` will fail with a
+permissions error on those specific files — you'll need to either remove
+them (if they're just regenerated cache files, like Python's `__pycache__`)
+or use `sudo chmod` on that specific file instead.
 ```
 
 ## Key Findings / Results
