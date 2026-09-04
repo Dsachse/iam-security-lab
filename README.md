@@ -2,9 +2,7 @@
 # AI robotic hardening
 
 ## Overview
-[Overview
-
-A security hardening case study on a a Raspberry Pi–based robotics and AI companion build (SunFounder PiCar-X). This project documents securing API credentials and reducing the device's network attack surface on a resource constrained edge device moving from a working but exposed setup to a hardened one.]
+I built the Picar-x from a raspberry pi 4 for fun mainly, I wanted to add a ai to it to it and essentially create my own robot that was smart. However because you never know this day in age, for the defensive side of Security I decided to really try to reduce the surface attack vectors. I wanted to see what I could do to help ensure the Pi was safe along with the AI. 
 
 ## Architecture
 ![Architecture Diagram](./diagrams/architecture.png)
