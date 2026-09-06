@@ -98,7 +98,7 @@ meaning other users or processes on the same machine could read or modify
 code they have no reason to touch. Lock this down to the owner only:
 
 ### 9. Enable automatic security updates
-
+ 
 Keeps the system patched against known vulnerabilities without manual
 intervention.
 
