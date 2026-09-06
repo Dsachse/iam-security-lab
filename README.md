@@ -41,7 +41,7 @@ sudo ufw enable
 sudo ufw status verbose
 ```
 
-### 2. Generate an SSH key pair (on your local machine — PowerShell on Windows, Terminal on Mac/Linux — not the Pi)
+### 2. Generate an SSH key pair (on your local machine — PowerShell on Windows, Terminal on Mac/Linux — (not the Pi)
 ```bash
 ssh-keygen -t ed25519 -C "your-label-here"
 ``` 
@@ -52,7 +52,7 @@ ssh-keygen -t ed25519 -C "your-label-here"
 ssh-copy-id sachse02@<pi-ip-address>
 ​```
 
-**Note for Windows users:** `ssh-copy-id` is a Linux/Mac-only tool and
+**Note for Windows users:** `ssh-copy-id` is a Linux/Mac only tool and
 isn't available in PowerShell — you'll get `'ssh-copy-id' is not
 recognized as an internal or external command`. Use this instead:
 
@@ -60,11 +60,11 @@ recognized as an internal or external command`. Use this instead:
 type C:\Users\<you>\.ssh\id_ed25519.pub | ssh sachse02@<pi-ip-address> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 ​```
 
-Both prompt for the Pi's account password one last time — that's
+Both prompt for the Pi's account password one last time that's
 expected, since you need an existing way in to install the very first key.
 ```
 
-### 4. Test key-based login before disabling passwords
+### 4. Test key based login before disabling passwords
 ```bash
 ssh pi@<pi-ip-address>
 ```
