@@ -90,11 +90,7 @@ sudo systemctl restart ssh
 sudo apt install fail2ban -y
 ```
 
-That last line — `### 10. Keep secrets...` — should **stay**, untouched, along with everything after it.
 
-Once that whole chunk is deleted, paste in the clean replacement I gave you:
-
-```markdown
 ### 8. Lock down file permissions on project code
 
 By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share.
