@@ -134,7 +134,7 @@ APT::Periodic::Unattended-Upgrade "1";
 
 ### 10. Keep secrets out of application code
 
-Hardcoding API keys directly in scripts is a common way credentials
+Hardcoding API keys directly in scripts is a common way credentials 
 end up leaked — especially if that code is ever pushed to a public
 repo. Store secrets in a separate, permission-locked file instead.
 
