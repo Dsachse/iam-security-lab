@@ -21,8 +21,6 @@ The Pi runs headless with locked down remote access; API credentials are isolate
 - Reducing overall attack surface by disabling unused services
 
 ## How to Deploy / Reproduce
-```bash
-## How to Deploy / Reproduce
 
 ### 1. Install and configure the firewall (ufw)
 ```bash
