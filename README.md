@@ -2,7 +2,7 @@
 # AI robotic hardening
 
 ## Overview
-I built the Picar-x from a raspberry pi 4 for fun mainly, I wanted to add a ai to it to it and essentially create my own robot that was smart. However because you never know this day in age, for the defensive side of Security I decided to really try to reduce the surface attack vectors. I wanted to see what I could do to help ensure the Pi was safe along with the AI. 
+I built the Picar-x from a raspberry pi 4 for fun mainly, I wanted to add a ai to it to it and essentially create my own robot that was semi smart. However because you never know this day in age, for the defensive side of Security I decided to really try to reduce the surface attack vectors. I wanted to see what I could do to help ensure the Pi was safe along with the AI. 
 
 ## Architecture
 ![Architecture Diagram](./diagrams/architecture.png)
@@ -112,7 +112,7 @@ ls -la ~/path/to/your/project/
 
 ### 9. Enable automatic security updates
 
-#Keeps the system patched against known vulnerabilities without manual intervention.
+##Keeps the system patched against known vulnerabilities without manual intervention.
 
 ​```bash
 sudo apt install unattended-upgrades -y
@@ -164,11 +164,11 @@ If the app runs as a systemd service, load the file via
 EnvironmentFile=/etc/myapp/env
 ​```
 
-The application code itself never contains a single secret — it's
+##The application code itself never contains a single secret — it's
 safe to make the repo public.
 
 ​
-Directories: owner gets full access, group can read/enter but not write,
+##Directories: owner gets full access, group can read/enter but not write,
 everyone else gets nothing
 ```bash
 chmod -R 750 ~/path/to/your/project/
@@ -180,7 +180,7 @@ find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
 ​```
 ```
   
-Verify the result:
+##Verify the result:
 
 ​```bash
 ls -la ~/path/to/your/project/
