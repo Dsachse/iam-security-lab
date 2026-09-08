@@ -130,7 +130,7 @@ Expected output:
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 ​```
-```
+
 
 ### 10. Keep secrets out of application code
 
