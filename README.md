@@ -95,11 +95,13 @@ sudo apt install fail2ban -y
 
 By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share.
 
-​```bash
+​
  Directories: owner gets full access, group can read/enter but not write, everyone else gets nothing
+```bash
 chmod -R 750 ~/path/to/your/project/
-
+```
  Files: owner can read/write, group can read-only, everyone else gets nothing
+```bash
 find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
 ​```
 
