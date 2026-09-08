@@ -161,13 +161,7 @@ Verify the result:
 
 ​```bash
 ls -la ~/path/to/your/project/
-​```
-
-**Note:** if any files in the directory were created by a different user
-(e.g. `root`, from running a script with `sudo`), `chmod` will fail with a
-permissions error on those specific files — you'll need to either remove
-them (if they're just regenerated cache files, like Python's `__pycache__`)
-or use `sudo chmod` on that specific file instead.
+​
 ```
 
 ## Key Findings / Results
