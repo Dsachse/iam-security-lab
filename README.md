@@ -149,10 +149,13 @@ API_KEY=your_actual_key_here
 ​```
 
 Lock the file down so only root can read it:
-​```bash
+​``` 
+```
 sudo chmod 600 /etc/myapp/env
+
 sudo chown root:root /etc/myapp/env
 ​```
+```
 
 If the app runs as a systemd service, load the file via
 `EnvironmentFile=` in the unit file:
