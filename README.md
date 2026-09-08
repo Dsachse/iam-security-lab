@@ -31,8 +31,8 @@ sudo apt install ufw -y
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 
-# Allow SSH before enabling — do this first or you'll lock yourself out
-sudo ufw allow ssh
+# Allow SSH before enabling  (do this first or you'll lock yourself out
+sudo ufw allow ssh)
 
 # Enable the firewall and confirm the rules
 sudo ufw enable
@@ -46,7 +46,7 @@ ssh-keygen -t ed25519 -C "your-label-here"
 
 ### 3. Copy the public key to the Pi
 ```bash
-ssh-copy-id sachse02@<pi-ip-address>
+ssh-copy-id (whatever name)@<pi-ip-address>
 ```
 
 **Note for Windows users:** `ssh-copy-id` is a Linux/Mac only tool and isn't available in PowerShell — you'll get `'ssh-copy-id' is not recognized as an internal or external command`. Use this instead:
