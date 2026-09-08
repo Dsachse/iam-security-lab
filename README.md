@@ -141,7 +141,7 @@ sudo chown root:root /etc/myapp/env
 If the app runs as a systemd service, load the file via
 `EnvironmentFile=` in the unit file:
 ​```
-[Service]
+[Service] 
 EnvironmentFile=/etc/myapp/env
 ​```
 
