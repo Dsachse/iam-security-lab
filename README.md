@@ -149,14 +149,14 @@ The application code itself never contains a single secret — it's
 safe to make the repo public.
 
 ​
- Directories: owner gets full access, group can read/enter but not write,
- everyone else gets nothing
- ```bash
+Directories: owner gets full access, group can read/enter but not write,
+everyone else gets nothing
+```bash
 chmod -R 750 ~/path/to/your/project/
 ```
 
- Files: owner can read/write, group can read-only, everyone else gets nothing
- ```bash
+Files: owner can read/write, group can read-only, everyone else gets nothing
+```bash
 find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
 ​```
 ```
