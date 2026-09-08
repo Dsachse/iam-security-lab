@@ -93,9 +93,7 @@ sudo apt install fail2ban -y
 ```
 ### 8. Lock down file permissions on project code
 
-By default, project files can end up world-readable or group-writable —
-meaning other users or processes on the same machine could read or modify
-code they have no reason to touch. Lock this down to the owner only:
+By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share. 
 
 ### 9. Enable automatic security updates
  
