@@ -111,7 +111,7 @@ Verify the result:
 ​```bash
 ls -la ~/path/to/your/project/
 ​```
-​```
+​
 
 Expected output:
 ​```
