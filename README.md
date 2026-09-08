@@ -91,19 +91,18 @@ sudo apt install fail2ban -y
 ```
 
 
-### 8. Lock down file permissions on project code
-
-By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share.
+### 8. Lock down file permissions on project code. By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share.
 
 ​
  Directories: owner gets full access, group can read/enter but not write, everyone else gets nothing
-```bash
+```
 chmod -R 750 ~/path/to/your/project/
 ```
  Files: owner can read/write, group can read-only, everyone else gets nothing
-```bash
+```
 find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
 ​```
+```
 
 Verify the result:
 
@@ -133,7 +132,6 @@ APT::Periodic::Unattended-Upgrade "1";
 ​```
 ```
 
-I included section 9 (auto-updates) again here too, since it looks like it was originally living *inside* this same broken block based on the "Expected output" line in your screenshot — this way you're replacing the whole broken chunk (sections 8 AND 9 together) with one clean, complete, correctly-fenced version in a single paste, rather than trying to preserve part of the broken block and only fix part of it.
 ### 10. Keep secrets out of application code
 
 Hardcoding API keys directly in scripts is a common way credentials
