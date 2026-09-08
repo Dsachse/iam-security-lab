@@ -95,20 +95,22 @@ sudo apt install fail2ban -y
 
 By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share. 
 
-### 9. Enable automatic security updates
- 
-Keeps the system patched against known vulnerabilities without manual
-intervention.
+
 
 ​```bash
-sudo apt install unattended-upgrades -y
-sudo dpkg-reconfigure --priority=low unattended-upgrades
+# Directories: owner gets full access, group can read/enter but not write,
+# everyone else gets nothing
+chmod -R 750 ~/path/to/your/project/
+
+# Files: owner can read/write, group can read-only, everyone else gets nothing
+find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
 ​```
 
-Verify it's actually enabled:
+Verify the result:
 
 ​```bash
-cat /etc/apt/apt.conf.d/20auto-upgrades
+ls -la ~/path/to/your/project/
+​```
 ​```
 
 Expected output:
