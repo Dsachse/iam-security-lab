@@ -2,7 +2,7 @@
 # AI robotic hardening
 
 ## Overview
-I built the Picar-x from a raspberry pi 4 for fun mainly, I wanted to add a ai to it to it and essentially create my own robot that was semi smart. However because you never know this day in age, for the defensive side of Security I decided to really try to reduce the surface attack vectors. I wanted to see what I could do to help ensure the Pi was safe along with the AI. 
+I built the Picar-x from a raspberry pi 4 for fun mainly, I wanted to add a ai to it and essentially create my own robot that was semi smart. However because you never know this day in age, for the defensive side of Security I decided to really try to reduce the surface attack vectors. I wanted to see what I could do to help ensure the Pi was safe along with the AI.
 
 ## Architecture
 ![Architecture Diagram](./diagrams/architecture.png)
@@ -11,7 +11,7 @@ The Pi runs headless with locked down remote access; API credentials are isolate
 
 ## Technologies Used
 - Raspberry Pi 4 Model B
-- Google Gemini AP
+- Google Gemini API
 - ufw / firewall rules
 - SSH hardening (key-only auth)
 
@@ -39,30 +39,25 @@ sudo ufw enable
 sudo ufw status verbose
 ```
 
-### 2. Generate an SSH key pair (on your local machine — PowerShell on Windows, Terminal on Mac/Linux — (not the Pi)
+### 2. Generate an SSH key pair (on your local machine — PowerShell on Windows, Terminal on Mac/Linux — not the Pi)
 ```bash
 ssh-keygen -t ed25519 -C "your-label-here"
-``` 
-
-### 3. Copy the public key to the Pi
-
-​```bash
-ssh-copy-id sachse02@<pi-ip-address>
-​```
-
-**Note for Windows users:** `ssh-copy-id` is a Linux/Mac only tool and
-isn't available in PowerShell — you'll get `'ssh-copy-id' is not
-recognized as an internal or external command`. Use this instead:
-
-​```bash
-type C:\Users\<you>\.ssh\id_ed25519.pub | ssh sachse02@<pi-ip-address> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
-​```
-
-Both prompt for the Pi's account password one last time that's
-expected, since you need an existing way in to install the very first key.
 ```
 
-### 4. Test key based login before disabling passwords
+### 3. Copy the public key to the Pi
+```bash
+ssh-copy-id sachse02@<pi-ip-address>
+```
+
+**Note for Windows users:** `ssh-copy-id` is a Linux/Mac only tool and isn't available in PowerShell — you'll get `'ssh-copy-id' is not recognized as an internal or external command`. Use this instead:
+
+```bash
+type C:\Users\<you>\.ssh\id_ed25519.pub | ssh sachse02@<pi-ip-address> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+Both prompt for the Pi's account password one last time — that's expected, since you need an existing way in to install the very first key.
+
+### 4. Test key-based login before disabling passwords
 ```bash
 ssh pi@<pi-ip-address>
 ```
@@ -74,10 +69,9 @@ Edit the SSH config:
 sudo nano /etc/ssh/sshd_config
 ```
 Set the following values:
-```
 PasswordAuthentication no
 PubkeyAuthentication yes
-```
+
 
 ### 6. Restart SSH to apply changes
 ```bash
@@ -90,102 +84,67 @@ sudo systemctl restart ssh
 sudo apt install fail2ban -y
 ```
 
+### 8. Lock down file permissions on project code
 
-### 8. Lock down file permissions on project code. By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share.
+By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share.
 
-​
- Directories: owner gets full access, group can read/enter but not write, everyone else gets nothing
-```
+```bash
+# Directories: owner gets full access, group can read/enter but not write, everyone else gets nothing
 chmod -R 750 ~/path/to/your/project/
-```
- Files: owner can read/write, group can read-only, everyone else gets nothing
-```
+
+# Files: owner can read/write, group can read-only, everyone else gets nothing
 find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
-​```
 ```
 
 Verify the result:
-
-​```bash
+```bash
 ls -la ~/path/to/your/project/
-​```
+```
 
 ### 9. Enable automatic security updates
 
-##Keeps the system patched against known vulnerabilities without manual intervention.
+Keeps the system patched against known vulnerabilities without manual intervention.
 
-​```bash
+```bash
 sudo apt install unattended-upgrades -y
 sudo dpkg-reconfigure --priority=low unattended-upgrades
-​```
+```
 
-#Verify it's actually enabled:
-
-​```bash
+Verify it's actually enabled:
+```bash
 cat /etc/apt/apt.conf.d/20auto-upgrades
-​```
+```
 
-#Expected output:
-​```
+Expected output:
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
-​```
 
 
 ### 10. Keep secrets out of application code
 
-#Hardcoding API keys directly in scripts is a common way credentials 
-end up leaked — especially if that code is ever pushed to a public
-repo. Store secrets in a separate, permission-locked file instead.
+Hardcoding API keys directly in scripts is a common way credentials end up leaked — especially if that code is ever pushed to a public repo. Store secrets in a separate, permission-locked file instead.
 
-​```bash
+```bash
 sudo mkdir -p /etc/myapp
 sudo nano /etc/myapp/env
-​```
+```
 
 Add secrets in `KEY=value` format, one per line:
-​```
 API_KEY=your_actual_key_here
-​```
+
 
 Lock the file down so only root can read it:
-​``` 
-```
+```bash
 sudo chmod 600 /etc/myapp/env
-
 sudo chown root:root /etc/myapp/env
-​```
 ```
 
-If the app runs as a systemd service, load the file via
-`EnvironmentFile=` in the unit file:
-​```
-[Service] 
+If the app runs as a systemd service, load the file via `EnvironmentFile=` in the unit file:
+[Service]
 EnvironmentFile=/etc/myapp/env
-​```
 
-##The application code itself never contains a single secret — it's
-safe to make the repo public.
 
-​
-##Directories: owner gets full access, group can read/enter but not write,
-everyone else gets nothing
-```bash
-chmod -R 750 ~/path/to/your/project/
-```
-
-Files: owner can read/write, group can read-only, everyone else gets nothing
-```bash
-find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
-​```
-```
-  
-##Verify the result:
-
-​```bash
-ls -la ~/path/to/your/project/
-​
-```
+The application code itself never contains a single secret — it's safe to make the repo public.
 
 ## Key Findings / Results
 Before/after state — e.g. "X ports open by default → down to Y after lockdown" or a table/screenshot of ufw status before and after. This section is what makes the project credible — worth filling in with real output.
