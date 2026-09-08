@@ -89,15 +89,18 @@ sudo systemctl restart ssh
 # Auto-ban IPs after repeated failed login attempts
 sudo apt install fail2ban -y
 ```
+
+That last line — `### 10. Keep secrets...` — should **stay**, untouched, along with everything after it.
+
+Once that whole chunk is deleted, paste in the clean replacement I gave you:
+
+```markdown
 ### 8. Lock down file permissions on project code
 
-By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share. 
-
-
+By default, files and folders may be loose with permissions. So always make sure to restrict and review anything you create or share.
 
 ​```bash
-# Directories: owner gets full access, group can read/enter but not write,
-# everyone else gets nothing
+# Directories: owner gets full access, group can read/enter but not write, everyone else gets nothing
 chmod -R 750 ~/path/to/your/project/
 
 # Files: owner can read/write, group can read-only, everyone else gets nothing
@@ -109,13 +112,30 @@ Verify the result:
 ​```bash
 ls -la ~/path/to/your/project/
 ​```
-​
+
+### 9. Enable automatic security updates
+
+Keeps the system patched against known vulnerabilities without manual intervention.
+
+​```bash
+sudo apt install unattended-upgrades -y
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+​```
+
+Verify it's actually enabled:
+
+​```bash
+cat /etc/apt/apt.conf.d/20auto-upgrades
+​```
 
 Expected output:
 ​```
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 ​```
+```
+
+I included section 9 (auto-updates) again here too, since it looks like it was originally living *inside* this same broken block based on the "Expected output" line in your screenshot — this way you're replacing the whole broken chunk (sections 8 AND 9 together) with one clean, complete, correctly-fenced version in a single paste, rather than trying to preserve part of the broken block and only fix part of it.
 ### 10. Keep secrets out of application code
 
 Hardcoding API keys directly in scripts is a common way credentials
