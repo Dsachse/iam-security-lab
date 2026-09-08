@@ -156,7 +156,7 @@ chmod -R 750 ~/path/to/your/project/
 # Files: owner can read/write, group can read-only, everyone else gets nothing
 find ~/path/to/your/project/ -type f -exec chmod 640 {} \;
 ​```
-
+  
 Verify the result:
 
 ​```bash
