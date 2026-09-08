@@ -112,20 +112,20 @@ ls -la ~/path/to/your/project/
 
 ### 9. Enable automatic security updates
 
-Keeps the system patched against known vulnerabilities without manual intervention.
+#Keeps the system patched against known vulnerabilities without manual intervention.
 
 ​```bash
 sudo apt install unattended-upgrades -y
 sudo dpkg-reconfigure --priority=low unattended-upgrades
 ​```
 
-Verify it's actually enabled:
+#Verify it's actually enabled:
 
 ​```bash
 cat /etc/apt/apt.conf.d/20auto-upgrades
 ​```
 
-Expected output:
+#Expected output:
 ​```
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
@@ -134,7 +134,7 @@ APT::Periodic::Unattended-Upgrade "1";
 
 ### 10. Keep secrets out of application code
 
-Hardcoding API keys directly in scripts is a common way credentials 
+#Hardcoding API keys directly in scripts is a common way credentials 
 end up leaked — especially if that code is ever pushed to a public
 repo. Store secrets in a separate, permission-locked file instead.
 
