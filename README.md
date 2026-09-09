@@ -151,10 +151,40 @@ EnvironmentFile=/etc/myapp/env
 The application code itself never contains a single secret — it's safe to make the repo public.
 
 ## Key Findings / Results
-Before/after state — e.g. "X ports open by default → down to Y after lockdown" or a table/screenshot of ufw status before and after. This section is what makes the project credible — worth filling in with real output.
+
+**Before hardening:**
+- No firewall running at all, every port was reachable by default
+- SSH accepted password authentication vulnerable to brute force guessing
+- Root login was permitted directly over SSH
+- No automated protection against repeated failed login attempts
+- No limit on authentication attempts per connection
+
+**After hardening — verified with `sudo ufw status verbose`:**
+
+​```
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere
+22/tcp (v6)                ALLOW IN    Anywhere (v6)
+​```
+
+Only SSH (port 22) is reachable — every other port is denied by default, both IPv4 and IPv6. Combined with:
+- Key-only SSH authentication (`PasswordAuthentication no`)
+- Root login disabled (`PermitRootLogin no`)
+- Login attempts capped at 3 per connection (`MaxAuthTries 3`)
+- fail2ban actively monitoring and auto-banning repeated failed attempts
+
+...the attack surface went from "every port reachable, password-guessable, unlimited attempts" to "one port reachable, key-only, capped attempts, automatically banning abuse."
 
 ## What I Learned
-[See Part 5 for how to write this section well.]
+Originally, I went into this project just trying to build a fun, silly AI robot. But since I'm also studying cybersecurity, I realized I should make sure the Pi itself was actually secure not just working. For example, there was no firewall running at all originally, and I hadn't limited failed login attempts even after I thought the project was "done."
 
+I set up asymmetric key-based SSH access and disabled passwords entirely, specifically to close off bruteforce attacks. That decision forced me to actually research the algorithm choice rather than just picking the first tutorial's answer that's how I learned Ed25519 is a more modern, safer choice than older RSA keys or even ECDSA, which can be vulnerable if its per-signature random number generation is ever weak or predictable.
+
+The biggest thing I learned, though, was around protecting API keys especially relevant given how much AI tooling relies on them today. I moved my API keys out of the Python script entirely and into a separate, permission-locked file the system loads at runtime. That way, if I ever share or publish the actual code, the real key is never exposed in it.
 ## What I'd Improve
-[Be specific. This section is read closely by hiring managers.]
+I think I would probably do more research for hardening in the beginning of the project. Because as I stated earlier, I actually had to go back and add things like the max attempts to ssh when a password has failed. I think in the future as well I will keep continuing  hardening this device because things change constantly. Once thing I would like to mention is I will probably be (and you should too) rotating/generating new keys every so often to ensure that the keys haven't been stolen or accessible. Although this project overall has low probability of it actually causing harm if something did happen, I still wanted to act like this project was really worth protecting and what I can do. Another thing I would like to improve further, most of these worries about api keys and having to regulate the firewalls inward is because I have it connecting to a LLM through the cloud. The most "secure" way would to be to get either better hardware and look for a really small AI model to run completely local. 
