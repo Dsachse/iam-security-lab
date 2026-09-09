@@ -69,8 +69,12 @@ Edit the SSH config:
 sudo nano /etc/ssh/sshd_config
 ```
 Set the following values:
+​```
 PasswordAuthentication no
 PubkeyAuthentication yes
+PermitRootLogin no
+MaxAuthTries 3
+​```
 
 
 ### 6. Restart SSH to apply changes
