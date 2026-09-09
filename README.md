@@ -70,7 +70,7 @@ sudo nano /etc/ssh/sshd_config
 ```
 Set the following values:
 ​```
-PasswordAuthentication no
+PasswordAuthentication no 
 PubkeyAuthentication yes
 PermitRootLogin no
 MaxAuthTries 3
