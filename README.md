@@ -68,8 +68,9 @@ Edit the SSH config:
 ```bash
 sudo nano /etc/ssh/sshd_config
 ```
+
 Set the following values:
-​```bash
+```bash
 PasswordAuthentication no
 PubkeyAuthentication yes
 PermitRootLogin no
