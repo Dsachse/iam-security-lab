@@ -75,8 +75,8 @@ PasswordAuthentication no
 PubkeyAuthentication yes
 PermitRootLogin no
 MaxAuthTries 3
+```
 ​
-
 ### 6. Restart SSH to apply changes
 ```bash
 sudo systemctl restart ssh
