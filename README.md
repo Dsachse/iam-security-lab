@@ -2,7 +2,7 @@
 # AI robotic hardening
 
 ## Overview
-I built the Picar-x from a raspberry pi 4 for fun mainly, I wanted to add a ai to it and essentially create my own robot that was semi smart. However because you never know this day in age, for the defensive side of Security I decided to really try to reduce the surface attack vectors. I wanted to see what I could do to help ensure the Pi was safe along with the AI.
+I built the Picar-x from a raspberry pi 4 for fun mainly, I wanted to add a ai to it and essentially create my own robot that was semi smart. However because you never know this day in age, for the defensive side of Security, I decided to really try to reduce the surface attack vectors. I wanted to see what I could do to help ensure the Pi was safe along with the AI.
 
 ## Architecture
 ![Architecture Diagram](./diagrams/architecture.png)
