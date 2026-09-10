@@ -160,9 +160,8 @@ The application code itself never contains a single secret — it's safe to make
 - No limit on authentication attempts per connection
 
 **After hardening — verified with `sudo ufw status verbose`:**
-
-​```
-Status: active
+```
+​Status: active
 Logging: on (low)
 Default: deny (incoming), allow (outgoing), disabled (routed)
 
@@ -170,7 +169,7 @@ To                         Action      From
 --                         ------      ----
 22/tcp                     ALLOW IN    Anywhere
 22/tcp (v6)                ALLOW IN    Anywhere (v6)
-​```
+```
 
 Only SSH (port 22) is reachable — every other port is denied by default, both IPv4 and IPv6. Combined with:
 - Key-only SSH authentication (`PasswordAuthentication no`)
