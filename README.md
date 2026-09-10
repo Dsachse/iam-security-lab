@@ -7,7 +7,7 @@ I built the Picar-x from a raspberry pi 4 for fun mainly, I wanted to add a ai t
 ## Architecture
 ![Architecture Diagram](./diagrams/architecture.png)
 
-The Pi runs headless with locked down remote access; API credentials are isolated from the application codebase, and unused network services/ports are disabled to reduce the attack surface.
+The Pi is accessed entirely over the network via keybased SSH no direct physical login exists. API credentials live outside the codebase in a permission-locked file, and the firewall denies all inbound traffic except SSH, keeping the exposed attack surface to a single, hardened entry point.
 
 ## Technologies Used
 - Raspberry Pi 4 Model B
