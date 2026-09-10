@@ -52,7 +52,7 @@ ssh-copy-id <username>@<pi-ip-address>
 **Note for Windows users:** `ssh-copy-id` is a Linux/Mac only tool and isn't available in PowerShell — you'll get `'ssh-copy-id' is not recognized as an internal or external command`. Use this instead:
 
 ```bash
-type C:\Users\<you>\.ssh\id_ed25519.pub | ssh sachse02@<pi-ip-address> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+type C:\Users\<you>\.ssh\id_ed25519.pub | ssh <username>@<pi-ip-address> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 ```
 
 Both prompt for the Pi's account password one last time — that's expected, since you need an existing way in to install the very first key.
