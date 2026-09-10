@@ -31,8 +31,8 @@ sudo apt install ufw -y
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 
-# Allow SSH before enabling  (do this first or you'll lock yourself out
-sudo ufw allow ssh)
+# Allow SSH before enabling — do this first or you'll lock yourself out
+sudo ufw allow ssh
 
 # Enable the firewall and confirm the rules
 sudo ufw enable
