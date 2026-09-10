@@ -46,7 +46,7 @@ ssh-keygen -t ed25519 -C "your-label-here"
 
 ### 3. Copy the public key to the Pi
 ```bash
-ssh-copy-id (whatever name)@<pi-ip-address>
+ssh-copy-id <username>@<pi-ip-address>
 ```
 
 **Note for Windows users:** `ssh-copy-id` is a Linux/Mac only tool and isn't available in PowerShell — you'll get `'ssh-copy-id' is not recognized as an internal or external command`. Use this instead:
@@ -59,7 +59,7 @@ Both prompt for the Pi's account password one last time — that's expected, sin
 
 ### 4. Test key-based login before disabling passwords
 ```bash
-ssh pi@<pi-ip-address>
+ssh <username>@<pi-ip-address>
 ```
 Confirm you can log in with no password prompt before continuing.
 
@@ -75,7 +75,7 @@ PasswordAuthentication no
 PubkeyAuthentication yes
 PermitRootLogin no
 MaxAuthTries 3
-​```
+​
 
 ### 6. Restart SSH to apply changes
 ```bash
